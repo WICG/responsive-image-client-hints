@@ -4,7 +4,11 @@ Status: DREAM
 ED: http://github.com/eeeps/responsive-image-client-hints
 Shortname: respimg-ch
 Level: 1
-Editor: Eric Portis, Cloudinary, https://ericportis.com, eric@cloudinary.com
+Editor: Eric Portis, Cloudinary, e@ericportis.com, https://ericportis.com
+Former Editor: Yoav Weiss, Google, yoav@yoav.ws, https://blog.yoav.ws
+               Ilya Grigorik, Google, ilya@igvita.com, https://www.igvita.com
+Previous Version: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-client-hints-06#section-3
+                  https://whatpr.org/html/3774/images.html#image-related-client-hints-request-headers
 Abstract: This spec introduces several client hints useful for server-negotiated responsive images.
 Markup Shorthands: dfn yes
                    markdown yes
