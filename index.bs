@@ -82,7 +82,7 @@ The <code>Sec-CH-Width</code> Header Field {#sec-ch-width}
 -------
 
 
-The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field gives a server information about the intended <a spec="html" lt="density-corrected intrinsic width and height">density-corrected</a> layout width of the image. It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
+The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field gives a server the layout width of the image, *in device pixels* (or printed dots). It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
 
 If the value is zero, it indicates that the image will not be displayed.
 
@@ -112,7 +112,11 @@ Sec-CH-Width: 660
 
 Note: do we need to talk about fetches initiated by CSS (probably)? Other sorts of fetches?
 
-Note: explain about density-corrected and Vary
+<div class="note">
+Note: An older version of this hint gave the layout width in CSS ''px''. However, to improve cache reusability, [the definition was changed to device pixels](https://github.com/igrigorik/http-client-hints/pull/61). As long as the resources only `Vary: Sec-CH-Width`, this, for instance, allows the same 1000-pixel-wide cached resource to satisfy both 500px@2x and 1000px@1x requests, as both get `Sec-CH-Width: 1000` in their cache key.
+
+If servers want to know the layout width of the image in CSS ''px'', they need both the <a http-header>Sec-CH-Width</a> and <a http-header>Sec-CH-DPR</a> hints: the <{img}>'s <a attribute spec="cssom-view">clientWidth</a> is equal to the value of <a http-header>Sec-CH-Width</a> divided by the value of <a http-header>Sec-CH-DPR</a>.
+</div>
 
 Note: does this get sent when there's no `sizes`?
 
