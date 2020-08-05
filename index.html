@@ -1223,7 +1223,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c05ebec3, updated Fri Jul 31 13:58:05 2020 -0700" name="generator">
   <link href="http://github.com/eeeps/responsive-image-client-hints" rel="canonical">
-  <meta content="acc52347b9fa1fc6d4fc7f9ef326411460661009" name="document-revision">
+  <meta content="84600df7e82a81aed43b795ede3f5821318c8bb7" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1499,7 +1499,7 @@ Parts of this work may be from another specification document.  If so, those par
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This spec introduces several client hints useful for server-negotiated responsive images.</p>
+   <p>This spec introduces several client hints useful for delivering responsive images via pro-active content negotiation.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
@@ -1530,9 +1530,9 @@ Parts of this work may be from another specification document.  If so, those par
     <li>
      <a href="#iana-considerations"><span class="secno">6</span> <span class="content">IANA Considerations</span></a>
      <ol class="toc">
-      <li><a href="#iana-width"><span class="secno">6.1</span> <span class="content"><span class="property">Sec-CH-Width</span> Header Field</span></a>
-      <li><a href="#iana-viewport-width"><span class="secno">6.2</span> <span class="content"><span class="property">Sec-CH-Viewport-Width</span> Header Field</span></a>
-      <li><a href="#iana-dpr"><span class="secno">6.3</span> <span class="content"><span class="property">Sec-CH-DPR</span> Header Field</span></a>
+      <li><a href="#iana-width"><span class="secno">6.1</span> <span class="content"><code>Sec-CH-Width</code> Header Field</span></a>
+      <li><a href="#iana-viewport-width"><span class="secno">6.2</span> <span class="content"><code>Sec-CH-Viewport-Width</code> Header Field</span></a>
+      <li><a href="#iana-dpr"><span class="secno">6.3</span> <span class="content"><code>Sec-CH-DPR</code> Header Field</span></a>
      </ol>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
@@ -1552,47 +1552,47 @@ Parts of this work may be from another specification document.  If so, those par
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#intro"></a></h2>
-   <p>Existing solutions for the <a href="http://usecases.responsiveimages.org">responsive image use cases</a> rely on a suite of markup (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element" id="ref-for-the-picture-element">picture</a></code> and <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-srcset" id="ref-for-attr-img-srcset">srcset</a></code>) which allows authors and browsers to decide how <code>&lt;img></code>s on the web should adapt to varying contexts, so that different users receive different resources, tailored to their particular context.</p>
-   <p>Authors know the most about the page which an <code>&lt;img></code> is appearing; user agents know the most about the end user’s current context and preferences. Servers, however, often know the most about the <em>available resources</em>, and are well-situated to make good decisions in more-scalable, easier-to-implement-and-maintain ways, via <a href="https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#content.negotiation">content negotiation</a>. Servers require a bit of extra information about the page and user, though, in order to do that; that information may be delivered in a secure, privacy-preserving way via these <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#" id="termref-for-">client hints</a>.</p>
+   <p>Existing solutions for the <a href="https://www.w3.org/TR/respimg-usecases/#use-cases">responsive image use cases</a> rely on a suite of markup (<code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element" id="ref-for-the-picture-element">picture</a></code> and <code><a data-link-type="element-sub" href="https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-srcset" id="ref-for-attr-img-srcset">srcset</a></code>) which allows authors and browsers to decide how images on the web should adapt to varying contexts, so that different users receive different resources, tailored to their particular context.</p>
+   <p>Authors know the most about the page which an image is appearing; user agents know the most about the end user’s current context and preferences. Servers, however, often know the most about the <em>available resources</em>, and are well-situated to make good decisions in more-scalable, easier-to-implement-and-maintain ways, via <a href="https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#rfc.section.7.4.1">proactive content negotiation</a>. Servers require a bit of extra information about the page and user, though, in order to make those decisions; that information may be delivered in a secure, privacy-preserving way via these <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#" id="termref-for-">client hints</a>.</p>
    <p>By moving this decision-making to the server, we:</p>
    <ul>
-    <li data-md>
-     <p>de-couple responsive image decision making from markup. This:</p>
-    <li data-md>
-     <p>makes markup much easier to author and maintain.</p>
-    <li data-md>
-     <p>allows the responsive image decision making to evolve more easily over time.</p>
-    <li data-md>
-     <p>move responsive image decision making to the place where resources being served, and often generated. This:</p>
-    <li data-md>
-     <p>allows that decision making to be informed by image content.</p>
-    <li data-md>
-     <p>allows image resources to be generated on the fly to fulfill requests.</p>
+    <li>
+     de-couple responsive image decision making from markup. This: 
+     <ul>
+      <li>makes markup much easier to author and maintain.
+      <li>allows the responsive image decision making to evolve more easily over time.
+     </ul>
+    <li>
+     move responsive image decision making to the place where the resources live. This: 
+     <ul>
+      <li>allows responsive image decision making to be informed by image content.
+      <li>allows resource generation to be informed by incoming requests.
+     </ul>
    </ul>
-   <div class="example" id="example-f84fda43">
-    <a class="self-link" href="#example-f84fda43"></a> ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this: 
+   <div class="example" id="example-0d58c519">
+    <a class="self-link" href="#example-0d58c519"></a> ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this: 
 <pre class="language-html highlight"><c- p>&lt;</c-><c- f>img</c->
 	<c- e>src</c-><c- o>=</c-><c- s>"https://media.shoeshoppe.biz/cool-shoe-hero.jpg"</c->
 	<c- e>sizes</c-><c- o>=</c-><c- s>"(min-width: 800px) 800px, 100vw"</c->
 	<c- e>alt</c-><c- o>=</c-><c- s>"A cool shoe"</c->
 <c- p>/></c->
 </pre>
-    <p>...and send the following <a data-link-type="dfn">Accept-CH</a> and <a data-link-type="dfn">permissions-policy-header</a> response headers along with their root HTML document:</p>
+    <p>...and send the following <a data-link-type="http-header" href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1" id="ref-for-section-3.1">Accept-CH</a> and <a data-link-type="http-header" href="https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header" id="ref-for-permissions-policy-header">Permissions-Policy</a> response headers along with their root HTML document:</p>
 <pre>Accept-CH: CH-DPR, CH-Width
 Permissions-Policy: ch-dpr=(self "https://media.shoeshoppe.biz"), ch-width=(self "https://media.shoeshoppe.biz")
 </pre>
-    <p>A user agent, on a 3x device, with a 400-px-wide viewport, then sends the following headers along with the image request:</p>
+    <p>A user agent running on a 3x device, with a 400-px-wide viewport, then sends the following headers along with the image request:</p>
 <pre>GET https://media.shoeshoppe.biz/cool-shoe-hero.jpg
 Sec-CH-Width: 1200
 Sec-CH-DPR: 3
 </pre>
-    <p><code>media.shoeshoppe.biz</code> might then respond to this by noting that <code>cool-shoe-hero.jpg</code> contains photographic content, and that the apparent-quality benefits of sending a 3x version are not likely to outweigh the cost in increased filesize. So it sends an 800-pixel-wide response instead, and <a href="https://github.com/whatwg/html/pull/5574">modifies the response resource’s EXIF resolution</a> to tell the browser that it is a 2x resource, in order to ensure that resulting <code>&lt;img></code> has the expected density-corrected intrinsic width of 400px.</p>
+    <p><code>media.shoeshoppe.biz</code> might note that <code>cool-shoe-hero.jpg</code> contains photographic content, and that the apparent-quality benefits of sending a full-3x, 1200-pixel-wide version won’t outweigh the cost in increased filesize. So it sends an 800-pixel-wide, 2x response instead, and <a href="https://github.com/whatwg/html/pull/5574">modifies the response resource’s EXIF resolution</a> in order to ensure that resulting <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element">img</a></code> has the expected <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height">density-corrected intrinsic width</a> of 400px.</p>
    </div>
    <h2 class="heading settled" data-level="2" id="responsive-image-hints"><span class="secno">2. </span><span class="content">Responsive Image Hints</span><a class="self-link" href="#responsive-image-hints"></a></h2>
    <h3 class="heading settled" data-level="2.1" id="sec-ch-width"><span class="secno">2.1. </span><span class="content">The <code>Sec-CH-Width</code> Header Field</span><a class="self-link" href="#sec-ch-width"></a></h3>
-   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-width">Sec-CH-Width</dfn></code> request header field gives a server information about the intended <a href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height">density-corrected</a> layout width of the image. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-①">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1">integer</a> greater than or equal to 0.</p>
+   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-width">Sec-CH-Width</dfn></code> request header field gives a server information about the intended <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height①">density-corrected</a> layout width of the image. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-①">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1">integer</a> greater than or equal to 0.</p>
    <p>If the value is zero, it indicates that the image will not be displayed.</p>
-   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch">fetches</a> trigged by <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element">img</a></code> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>’s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio">devicePixelRatio</a></code>.</p>
+   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch">fetches</a> trigged by <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>’s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio">devicePixelRatio</a></code>.</p>
    <div class="example" id="example-65c910bb">
     <a class="self-link" href="#example-65c910bb"></a> Given: 
     <ol>
@@ -1631,9 +1631,9 @@ Sec-CH-DPR: 3
     <p>In the absence of any other client hints, the server does the best it can and sends back a 1000-pixel-wide response.</p>
    </div>
    <h3 class="heading settled" data-level="2.3" id="sec-ch-dpr"><span class="secno">2.3. </span><span class="content">The <code>Sec-CH-DPR</code> Header Field</span><a class="self-link" href="#sec-ch-dpr"></a></h3>
-   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR<a class="self-link" href="#http-headerdef-sec-ch-dpr"></a></dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn">decimal</a> greater than 0.</p>
+   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
-   <p>Servers that send resources in response to requests including <a data-link-type="dfn">Sec-CH-DPR</a> SHOULD <a href="](https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a>).</p>
+   <p>Servers that send resources in response to requests including <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr">Sec-CH-DPR</a> SHOULD <a href="https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a> to ensure that, even as the resolution of the width is changing, its <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height②">density-corrected intrinsic width</a> does not.</p>
    <div class="example" id="example-7e49dc2b">
     <a class="self-link" href="#example-7e49dc2b"></a> 
     <p>Given:</p>
@@ -1655,12 +1655,12 @@ PixelYDimensions: 600
 </pre>
    </div>
    <h3 class="heading settled" data-level="2.4" id="fetch-integration"><span class="secno">2.4. </span><span class="content">Integration with Fetch</span><a class="self-link" href="#fetch-integration"></a></h3>
-   <p>Fetch integration of this specification is defined as part of the <a href="https://wicg.github.io/client-hints-infrastructure/#fetch">Client Hints infrastructure</a> specification.</p>
+   <p>This specification’s <a data-link-type="abstract-op" href="https://wicg.github.io/client-hints-infrastructure/#fetch" id="ref-for-fetch">integration with Fetch</a> is defined as part of the <a data-link-type="biblio" href="#biblio-client-hints-infrastructure">[client-hints-infrastructure]</a> specification.</p>
    <h2 class="heading settled" data-level="3" id="security-privacy"><span class="secno">3. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-privacy"></a></h2>
    <h3 class="heading settled" data-level="3.1" id="secure-transport"><span class="secno">3.1. </span><span class="content">Secure Transport</span><a class="self-link" href="#secure-transport"></a></h3>
    <p>Client Hints will not be delivered to non-secure endpoints (see the secure transport requirements in Section 2.2.1 of <a data-link-type="biblio" href="#biblio-i-dietf-httpbis-client-hints">[I-D.ietf-httpbis-client-hints]</a>). This means that information about the user’s device pixel ratio and viewport size will not be leaked over plaintext channels, reducing the opportunity for network attackers to build a profile of a given agent’s behavior over time.</p>
    <h3 class="heading settled" data-level="3.2" id="delegation"><span class="secno">3.2. </span><span class="content">Delegation</span><a class="self-link" href="#delegation"></a></h3>
-   <p>Client Hints will be delegated from top-level pages via Permissions Policy. This reduces the potential for <a href="https://www.w3.org/TR/fingerprinting-guidance/#passive-0">passive fingerprinting</a> by:</p>
+   <p>Client Hints will be delegated from top-level pages via Permissions Policy. This reduces the potential for <a data-link-type="dfn" href="https://www.w3.org/TR/fingerprinting-guidance/#dfn-passive-fingerprinting" id="ref-for-dfn-passive-fingerprinting">passive fingerprinting</a> by:</p>
    <ol>
     <li data-md>
      <p>Sending fewer hints to third parties.</p>
@@ -1669,7 +1669,7 @@ PixelYDimensions: 600
     <li data-md>
      <p>Ensuring that everyone (users, user agents, privacy advocates...) can see who is getting what information.</p>
    </ol>
-   <p>That delegation is defined as part of <a href="https://wicg.github.io/client-hints-infrastructure/#abstract-opdef-append-client-hints-to-request">append client hints to request</a>.</p>
+   <p>That delegation is defined as part of <a data-link-type="abstract-op" href="https://wicg.github.io/client-hints-infrastructure/#abstract-opdef-append-client-hints-to-request" id="ref-for-abstract-opdef-append-client-hints-to-request">append client hints to request</a>.</p>
    <h3 class="heading settled" data-level="3.3" id="access-and-accuracy"><span class="secno">3.3. </span><span class="content">Access and Accuracy Restrictions</span><a class="self-link" href="#access-and-accuracy"></a></h3>
    <p>The information in the Client Hints defined above reveals extra information about the user’s context. User agents ought to exercise judgement before granting access to this information, and MAY impose restrictions above and beyond the secure transport and delegation requirements noted above. For instance, screen readers may choose not to indicate that they have no viewport, to ensure that their users are not <a href="https://tink.uk/thoughts-on-screen-reader-detection/">served separate content</a>. Similarly, user agents might offer users control over when hints are revealed to servers, gating them based on privacy modes or settings.</p>
    <p>User agents may also choose to reduce the accuracy of these values, by rounding to reduce variation between users, and/or adding jitter to increase variation for a single user.</p>
@@ -1681,7 +1681,7 @@ PixelYDimensions: 600
    <p class="issue" id="issue-8e5d3dd1"><a class="self-link" href="#issue-8e5d3dd1"></a> TODO (start with https://github.com/WICG/ua-client-hints/blob/master/index.bs#L282 or https://github.com/WICG/ua-client-hints/blob/master/index.bs#L554)</p>
    <h2 class="heading settled" data-level="6" id="iana-considerations"><span class="secno">6. </span><span class="content">IANA Considerations</span><a class="self-link" href="#iana-considerations"></a></h2>
    <p>This document intends to define the <code>Sec-CH-Width</code>, <code>Sec-CH-Viewport-Width</code>, and <code>Sec-CH-DPR</code> HTTP request header fields, and register them in the permanent message header field registry (<a data-link-type="biblio" href="#biblio-rfc3864">[RFC3864]</a>).</p>
-   <h3 class="heading settled" data-level="6.1" id="iana-width"><span class="secno">6.1. </span><span class="content"><a class="property" data-link-type="propdesc">Sec-CH-Width</a> Header Field</span><a class="self-link" href="#iana-width"></a></h3>
+   <h3 class="heading settled" data-level="6.1" id="iana-width"><span class="secno">6.1. </span><span class="content"><code>Sec-CH-Width</code> Header Field</span><a class="self-link" href="#iana-width"></a></h3>
    <p>Header field name:</p>
    <dl>
     <dt data-md>Sec-CH-Width
@@ -1702,7 +1702,7 @@ PixelYDimensions: 600
    <dl>
     <dt data-md>this specification (<a href="#sec-ch-width">§ 2.1 The Sec-CH-Width Header Field</a>)
    </dl>
-   <h3 class="heading settled" data-level="6.2" id="iana-viewport-width"><span class="secno">6.2. </span><span class="content"><a class="property" data-link-type="propdesc">Sec-CH-Viewport-Width</a> Header Field</span><a class="self-link" href="#iana-viewport-width"></a></h3>
+   <h3 class="heading settled" data-level="6.2" id="iana-viewport-width"><span class="secno">6.2. </span><span class="content"><code>Sec-CH-Viewport-Width</code> Header Field</span><a class="self-link" href="#iana-viewport-width"></a></h3>
    <p>Header field name:</p>
    <dl>
     <dt data-md>Sec-CH-Viewport-Width
@@ -1723,7 +1723,7 @@ PixelYDimensions: 600
    <dl>
     <dt data-md>this specification (<a href="#sec-ch-viewport-width">§ 2.2 The Sec-CH-Viewport-Width Header Field</a>)
    </dl>
-   <h3 class="heading settled" data-level="6.3" id="iana-dpr"><span class="secno">6.3. </span><span class="content"><a class="property" data-link-type="propdesc">Sec-CH-DPR</a> Header Field</span><a class="self-link" href="#iana-dpr"></a></h3>
+   <h3 class="heading settled" data-level="6.3" id="iana-dpr"><span class="secno">6.3. </span><span class="content"><code>Sec-CH-DPR</code> Header Field</span><a class="self-link" href="#iana-dpr"></a></h3>
    <p>Header field name:</p>
    <dl>
     <dt data-md>Sec-CH-DPR
@@ -1898,6 +1898,18 @@ PixelYDimensions: 600
    <li><a href="#http-headerdef-sec-ch-viewport-width">Sec-CH-Viewport-Width</a><span>, in §2.2</span>
    <li><a href="#http-headerdef-sec-ch-width">Sec-CH-Width</a><span>, in §2.1</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-abstract-opdef-append-client-hints-to-request">
+   <a href="https://wicg.github.io/client-hints-infrastructure/#abstract-opdef-append-client-hints-to-request">https://wicg.github.io/client-hints-infrastructure/#abstract-opdef-append-client-hints-to-request</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abstract-opdef-append-client-hints-to-request">3.2. Delegation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-fetch">
+   <a href="https://wicg.github.io/client-hints-infrastructure/#fetch">https://wicg.github.io/client-hints-infrastructure/#fetch</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-fetch">2.4. Integration with Fetch</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-px">
    <a href="https://drafts.csswg.org/css-values-4/#px">https://drafts.csswg.org/css-values-4/#px</a><b>Referenced in:</b>
    <ul>
@@ -1925,6 +1937,12 @@ PixelYDimensions: 600
     <li><a href="#ref-for-concept-fetch②">2.3. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-passive-fingerprinting">
+   <a href="https://www.w3.org/TR/fingerprinting-guidance/#dfn-passive-fingerprinting">https://www.w3.org/TR/fingerprinting-guidance/#dfn-passive-fingerprinting</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-passive-fingerprinting">3.2. Delegation</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-window">
    <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
    <ul>
@@ -1933,10 +1951,19 @@ PixelYDimensions: 600
     <li><a href="#ref-for-window②">2.3. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-density-corrected-intrinsic-width-and-height">
+   <a href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height">https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-density-corrected-intrinsic-width-and-height">1. Introduction</a>
+    <li><a href="#ref-for-density-corrected-intrinsic-width-and-height①">2.1. The Sec-CH-Width Header Field</a>
+    <li><a href="#ref-for-density-corrected-intrinsic-width-and-height②">2.3. The Sec-CH-DPR Header Field</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-the-img-element">
    <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element">https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-the-img-element">2.1. The Sec-CH-Width Header Field</a>
+    <li><a href="#ref-for-the-img-element">1. Introduction</a>
+    <li><a href="#ref-for-the-img-element①">2.1. The Sec-CH-Width Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-picture-element">
@@ -1951,10 +1978,22 @@ PixelYDimensions: 600
     <li><a href="#ref-for-attr-img-srcset">1. Introduction</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-section-3.1">
+   <a href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1">https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-section-3.1">1. Introduction</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-">
    <a href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#">https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#</a><b>Referenced in:</b>
    <ul>
     <li><a href="#termref-for-">1. Introduction</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-section-3.3.2">
+   <a href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2">https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-section-3.3.2">2.3. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-section-3.3.1">
@@ -1972,8 +2011,20 @@ PixelYDimensions: 600
     <li><a href="#termref-for-">2.3. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-permissions-policy-header">
+   <a href="https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header">https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permissions-policy-header">1. Introduction</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
+   <li>
+    <a data-link-type="biblio">[client-hints-infrastructure]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-abstract-opdef-append-client-hints-to-request" style="color:initial">append client hints to request</span>
+     <li><span class="dfn-paneled" id="term-for-fetch" style="color:initial">integration with Fetch</span>
+    </ul>
    <li>
     <a data-link-type="biblio">[css-values-4]</a> defines the following terms:
     <ul>
@@ -1991,9 +2042,15 @@ PixelYDimensions: 600
      <li><span class="dfn-paneled" id="term-for-concept-fetch" style="color:initial">fetch</span>
     </ul>
    <li>
+    <a data-link-type="biblio">[fingerprinting-guidance]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dfn-passive-fingerprinting" style="color:initial">passive fingerprinting</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
+     <li><span class="dfn-paneled" id="term-for-density-corrected-intrinsic-width-and-height" style="color:initial">density-corrected intrinsic width and height</span>
      <li><span class="dfn-paneled" id="term-for-the-img-element" style="color:initial">img</span>
      <li><span class="dfn-paneled" id="term-for-the-picture-element" style="color:initial">picture</span>
      <li><span class="dfn-paneled" id="term-for-attr-img-srcset" style="color:initial">srcset</span>
@@ -2001,22 +2058,33 @@ PixelYDimensions: 600
    <li>
     <a data-link-type="biblio">[I-D.ietf-httpbis-client-hints]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="term-for-section-3.1" style="color:initial">accept-ch</span>
      <li><span class="dfn-paneled" id="term-for-" style="color:initial">client hints</span>
     </ul>
    <li>
     <a data-link-type="biblio">[I-D.ietf-httpbis-header-structure]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="term-for-section-3.3.2" style="color:initial">decimal</span>
      <li><span class="dfn-paneled" id="term-for-section-3.3.1" style="color:initial">integer</span>
      <li><span class="dfn-paneled" id="term-for-①" style="color:initial">structured header</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[permissions-policy-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-permissions-policy-header" style="color:initial">permissions-policy</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-client-hints-infrastructure">[CLIENT-HINTS-INFRASTRUCTURE]
+   <dd>Yoav Weiss. <a href="https://wicg.github.io/client-hints-infrastructure/">Client Hints Infrastructure</a>. CG-DRAFT. URL: <a href="https://wicg.github.io/client-hints-infrastructure/">https://wicg.github.io/client-hints-infrastructure/</a>
    <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
    <dd>Simon Pieters. <a href="https://www.w3.org/TR/cssom-view-1/">CSSOM View Module</a>. 17 March 2016. WD. URL: <a href="https://www.w3.org/TR/cssom-view-1/">https://www.w3.org/TR/cssom-view-1/</a>
    <dt id="biblio-fetch">[FETCH]
    <dd>Anne van Kesteren. <a href="https://fetch.spec.whatwg.org/">Fetch Standard</a>. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
+   <dt id="biblio-fingerprinting-guidance">[FINGERPRINTING-GUIDANCE]
+   <dd>Nick Doty. <a href="https://www.w3.org/TR/fingerprinting-guidance/">Mitigating Browser Fingerprinting in Web Specifications</a>. 28 March 2019. NOTE. URL: <a href="https://www.w3.org/TR/fingerprinting-guidance/">https://www.w3.org/TR/fingerprinting-guidance/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-i-dietf-httpbis-client-hints">[I-D.ietf-httpbis-client-hints]
@@ -2030,6 +2098,8 @@ PixelYDimensions: 600
   <dl>
    <dt id="biblio-css-values-4">[CSS-VALUES-4]
    <dd>Tab Atkins Jr.; Elika Etemad. <a href="https://www.w3.org/TR/css-values-4/">CSS Values and Units Module Level 4</a>. 31 January 2019. WD. URL: <a href="https://www.w3.org/TR/css-values-4/">https://www.w3.org/TR/css-values-4/</a>
+   <dt id="biblio-permissions-policy-1">[PERMISSIONS-POLICY-1]
+   <dd>Ian Clelland. <a href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a>. 16 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
    <dt id="biblio-rfc3864">[RFC3864]
    <dd>G. Klyne; M. Nottingham; J. Mogul. <a href="https://tools.ietf.org/html/rfc3864">Registration Procedures for Message Header Fields</a>. September 2004. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc3864">https://tools.ietf.org/html/rfc3864</a>
   </dl>
@@ -2042,6 +2112,12 @@ PixelYDimensions: 600
    <b><a href="#http-headerdef-sec-ch-width">#http-headerdef-sec-ch-width</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-http-headerdef-sec-ch-width">2.1. The Sec-CH-Width Header Field</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="http-headerdef-sec-ch-dpr">
+   <b><a href="#http-headerdef-sec-ch-dpr">#http-headerdef-sec-ch-dpr</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-http-headerdef-sec-ch-dpr">2.3. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

@@ -9,7 +9,7 @@ Former Editor: Yoav Weiss, Google, yoav@yoav.ws, https://blog.yoav.ws
                Ilya Grigorik, Google, ilya@igvita.com, https://www.igvita.com
 Previous Version: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-client-hints-06#section-3
                   https://whatpr.org/html/3774/images.html#image-related-client-hints-request-headers
-Abstract: This spec introduces several client hints useful for server-negotiated responsive images.
+Abstract: This spec introduces several client hints useful for delivering responsive images via pro-active content negotiation.
 Markup Shorthands: dfn yes
                    markdown yes
 </pre>
@@ -22,18 +22,26 @@ spec:fetch; type:dfn; for:/; text:fetch
 Introduction {#intro}
 =======
 
-Existing solutions for the [responsive image use cases](http://usecases.responsiveimages.org) rely on a suite of markup (<{picture}> and <{img/srcset}>) which allows authors and browsers to decide how `<img>`s on the web should adapt to varying contexts, so that different users receive different resources, tailored to their particular context.
+Existing solutions for the [[respimg-usecases#use-cases|responsive image use cases]] rely on a suite of markup (<{picture}> and <{img/srcset}>) which allows authors and browsers to decide how images on the web should adapt to varying contexts, so that different users receive different resources, tailored to their particular context.
 
-Authors know the most about the page which an `<img>` is appearing; user agents know the most about the end user's current context and preferences. Servers, however, often know the most about the *available resources*, and are well-situated to make good decisions in more-scalable, easier-to-implement-and-maintain ways, via [content negotiation](https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#content.negotiation). Servers require a bit of extra information about the page and user, though, in order to do that; that information may be delivered in a secure, privacy-preserving way via these [=client hints=].
+Authors know the most about the page which an image is appearing; user agents know the most about the end user's current context and preferences. Servers, however, often know the most about the *available resources*, and are well-situated to make good decisions in more-scalable, easier-to-implement-and-maintain ways, via [proactive content negotiation](https://httpwg.org/http-core/draft-ietf-httpbis-semantics-latest.html#rfc.section.7.4.1). Servers require a bit of extra information about the page and user, though, in order to make those decisions; that information may be delivered in a secure, privacy-preserving way via these [=client hints=].
 
 By moving this decision-making to the server, we:
 
-- de-couple responsive image decision making from markup. This:
-   - makes markup much easier to author and maintain.
-   - allows the responsive image decision making to evolve more easily over time.
-- move responsive image decision making to the place where resources being served, and often generated. This:
-   - allows that decision making to be informed by image content.
-   - allows image resources to be generated on the fly to fulfill requests.
+<ul>
+<li>de-couple responsive image decision making from markup. This:
+	<ul>
+		<li>makes markup much easier to author and maintain.</li>
+		<li>allows the responsive image decision making to evolve more easily over time.</li>
+	</ul>
+</li>
+<li>move responsive image decision making to the place where the resources live. This:
+	<ul>
+		<li>allows responsive image decision making to be informed by image content.</li>
+		<li>allows resource generation to be informed by incoming requests.</li>
+	</ul>
+</li>
+</ul> 
 
 <div class="example">
 ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this:
@@ -46,14 +54,14 @@ ShoeShoppe.biz wants to send responsive hero images on their product pages. With
 />
 ```
 
-...and send the following [=client hints/Accept-CH=] and [=permissions-policy-header=] response headers along with their root HTML document:
+...and send the following <a http-header for="client hints">Accept-CH</a> and <a http-header>Permissions-Policy</a> response headers along with their root HTML document:
 
 ```
 Accept-CH: CH-DPR, CH-Width
 Permissions-Policy: ch-dpr=(self "https://media.shoeshoppe.biz"), ch-width=(self "https://media.shoeshoppe.biz")
 ```
 
-A user agent, on a 3x device, with a 400-px-wide viewport, then sends the following headers along with the image request:
+A user agent running on a 3x device, with a 400-px-wide viewport, then sends the following headers along with the image request:
 
 ```
 GET https://media.shoeshoppe.biz/cool-shoe-hero.jpg
@@ -61,7 +69,7 @@ Sec-CH-Width: 1200
 Sec-CH-DPR: 3
 ```
 
-`media.shoeshoppe.biz` might then respond to this by noting that `cool-shoe-hero.jpg` contains photographic content, and that the apparent-quality benefits of sending a 3x version are not likely to outweigh the cost in increased filesize. So it sends an 800-pixel-wide response instead, and [modifies the response resource's EXIF resolution](https://github.com/whatwg/html/pull/5574) to tell the browser that it is a 2x resource, in order to ensure that resulting `<img>` has the expected density-corrected intrinsic width of 400px.
+`media.shoeshoppe.biz` might note that `cool-shoe-hero.jpg` contains photographic content, and that the apparent-quality benefits of sending a full-3x, 1200-pixel-wide version won't outweigh the cost in increased filesize. So it sends an 800-pixel-wide, 2x response instead, and [modifies the response resource's EXIF resolution](https://github.com/whatwg/html/pull/5574) in order to ensure that resulting <{img}> has the expected <a spec="html" lt="density-corrected intrinsic width and height">density-corrected intrinsic width</a> of 400px.
 </div>
 
 
@@ -73,7 +81,7 @@ The <code>Sec-CH-Width</code> Header Field {#sec-ch-width}
 -------
 
 
-The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field gives a server information about the intended <a href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height">density-corrected</a> layout width of the image. It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
+The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field gives a server information about the intended <a spec="html" lt="density-corrected intrinsic width and height">density-corrected</a> layout width of the image. It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
 
 If the value is zero, it indicates that the image will not be displayed.
 
@@ -152,7 +160,7 @@ The <code><dfn http-header export>Sec-CH-DPR</dfn></code> request header field g
 
 For [=fetches=] within web contexts, its value SHOULD be the {{Window}}'s current {{Window/devicePixelRatio}}.
 
-Servers that send resources in response to requests including [=Sec-CH-DPR=] SHOULD [adjust those resource's intrinsic resolutions via metadata](](https://github.com/whatwg/html/pull/5574)).
+Servers that send resources in response to requests including <a http-header>Sec-CH-DPR</a> SHOULD [adjust those resource's intrinsic resolutions via metadata](https://github.com/whatwg/html/pull/5574) to ensure that, even as the resolution of the width is changing, its <a spec="html" lt="density-corrected intrinsic width and height">density-corrected intrinsic width</a> does not.
 
 <div class="example">
 
@@ -190,7 +198,7 @@ PixelYDimensions: 600
 Integration with Fetch {#fetch-integration}
 -------
 
-Fetch integration of this specification is defined as part of the <a href="https://wicg.github.io/client-hints-infrastructure/#fetch">Client Hints infrastructure</a> specification.
+This specification's [$client-hints-infrastructure/integration with Fetch$] is defined as part of the [[client-hints-infrastructure]] specification.
 
 
 
@@ -210,13 +218,13 @@ Client Hints will not be delivered to non-secure endpoints (see the secure trans
 Delegation {#delegation}
 ----------
 
-Client Hints will be delegated from top-level pages via Permissions Policy. This reduces the potential for <a href="https://www.w3.org/TR/fingerprinting-guidance/#passive-0">passive fingerprinting</a> by:
+Client Hints will be delegated from top-level pages via Permissions Policy. This reduces the potential for [=passive fingerprinting=] by:
 
 1. Sending fewer hints to third parties.
 1. Never doing so indiscriminately. Information can only be revealed to third parties after the root page author explicitly asks it to be revealed to them. 
 2. Ensuring that everyone (users, user agents, privacy advocates...) can see who is getting what information.
 
-That delegation is defined as part of <a href="https://wicg.github.io/client-hints-infrastructure/#abstract-opdef-append-client-hints-to-request">append client hints to request</a>.
+That delegation is defined as part of [$client-hints-infrastructure/append client hints to request$].
 
 
 Access and Accuracy Restrictions {#access-and-accuracy}
@@ -243,16 +251,13 @@ The Sec-CH prefix {#sec-ch-prefix}
 Issue: TODO (start with https://github.com/WICG/ua-client-hints/blob/master/index.bs#L282 or https://github.com/WICG/ua-client-hints/blob/master/index.bs#L554)
 
 
-
-
-
 IANA Considerations {#iana-considerations}
 =======
 
 
 This document intends to define the `Sec-CH-Width`, `Sec-CH-Viewport-Width`, and `Sec-CH-DPR` HTTP request header fields, and register them in the permanent message header field registry ([[RFC3864]]).
 
-'Sec-CH-Width' Header Field {#iana-width}
+`Sec-CH-Width` Header Field {#iana-width}
 --------------------------
 
 Header field name:
@@ -270,7 +275,7 @@ Author/Change controller:
 Specification document:
 : this specification ([[#sec-ch-width]])
 
-'Sec-CH-Viewport-Width' Header Field {#iana-viewport-width}
+`Sec-CH-Viewport-Width` Header Field {#iana-viewport-width}
 --------------------------
 
 Header field name:
@@ -288,7 +293,7 @@ Author/Change controller:
 Specification document:
 : this specification ([[#sec-ch-viewport-width]])
 
-'Sec-CH-DPR' Header Field {#iana-dpr}
+`Sec-CH-DPR` Header Field {#iana-dpr}
 --------------------------
 
 Header field name:
@@ -312,11 +317,8 @@ urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-header-structure; spec
         text: structured header; url: #
     for: structured header
         type: dfn
-            text: token; url: #section-3.3.6
-            text: boolean; url: #section-3.3.4
-            text: string; url: #section-3.3.3
             text: integer; url: #section-3.3.1
-            text: list; url: #section-3.1
+            text: decimal; url: #section-3.3.2
     type: abstract-op
         text: serialize Structured Header; url: #section-4.1
 urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-client-hints; spec: I-D.ietf-httpbis-client-hints
@@ -325,6 +327,15 @@ urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-client-hints; spec: I-
     for: client hints
         type: http-header
             text: Accept-CH; url: #section-3.1
+urlPrefix: https://wicg.github.io/client-hints-infrastructure/; spec: client-hints-infrastructure
+    for: client-hints-infrastructure
+        type: abstract-op
+            text: integration with Fetch; url: #fetch
+        type: abstract-op
+            text: append client hints to request; url: #abstract-opdef-append-client-hints-to-request
+urlPrefix: https://www.w3.org/TR/fingerprinting-guidance/; spec: fingerprinting-guidance
+    type: dfn
+        text: passive fingerprinting; url: #dfn-passive-fingerprinting
 </pre>
 <pre class="biblio">
 {
@@ -341,6 +352,13 @@ urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-client-hints; spec: I-
     "authors": [ "Ilya Grigorik" ],
     "status": "ID",
     "publisher": "IETF"
+  },
+  "client-hints-infrastructure": {
+    "authors": [ "Yoav Weiss" ],
+    "href": "https://wicg.github.io/client-hints-infrastructure/",
+    "title": "Client Hints Infrastructure",
+    "status": "CG-DRAFT",
+    "publisher": "W3C"
   }
 }
 </pre>
