@@ -7,8 +7,9 @@ Level: 1
 Editor: Eric Portis, Cloudinary, e@ericportis.com, https://ericportis.com
 Former Editor: Yoav Weiss, Google, yoav@yoav.ws, https://blog.yoav.ws
                Ilya Grigorik, Google, ilya@igvita.com, https://www.igvita.com
-Previous Version: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-client-hints-06#section-3
-                  https://whatpr.org/html/3774/images.html#image-related-client-hints-request-headers
+Previous Version: https://whatpr.org/html/3774/images.html#image-related-client-hints-request-headers
+                  https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-client-hints-06#section-3
+                  https://github.com/igrigorik/http-client-hints/blob/565e540d9d53681064c6903bf08ceb1dfbedebe4/draft.md#client-hint-request-header-fields
 Abstract: This spec introduces several client hints useful for delivering responsive images via pro-active content negotiation.
 Markup Shorthands: dfn yes
                    markdown yes
