@@ -1223,7 +1223,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c05ebec3, updated Fri Jul 31 13:58:05 2020 -0700" name="generator">
   <link href="http://github.com/eeeps/responsive-image-client-hints" rel="canonical">
-  <meta content="84600df7e82a81aed43b795ede3f5821318c8bb7" name="document-revision">
+  <meta content="a2d8151edd5f93b647ea340e071a147e8f4e2200" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1470,7 +1470,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Responsive Image Client Hints</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-08-04">4 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-08-05">5 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1491,7 +1491,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 4 August 2020,
+In addition, as of 5 August 2020,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -1634,8 +1634,8 @@ Sec-CH-DPR: 3
    <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
    <p>Servers that send resources in response to requests including <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr">Sec-CH-DPR</a> SHOULD <a href="https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a> to ensure that, even as the resolution of the width is changing, its <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height②">density-corrected intrinsic width</a> does not.</p>
-   <div class="example" id="example-7e49dc2b">
-    <a class="self-link" href="#example-7e49dc2b"></a> 
+   <div class="example" id="example-343f2449">
+    <a class="self-link" href="#example-343f2449"></a> 
     <p>Given:</p>
     <ol>
      <li>
@@ -1652,6 +1652,9 @@ Sec-CH-DPR: 3
 XResolutionUnit: Inch
 PixelXDimensions: 800
 PixelYDimensions: 600
+</pre>
+    <p>And it sends the following <code>Vary</code> header along with the response, so that <a data-link-type="dfn" header htpp>Sec-CH-DPR</a> header field is added to the cache key:</p>
+<pre>Vary: DPR
 </pre>
    </div>
    <h3 class="heading settled" data-level="2.4" id="fetch-integration"><span class="secno">2.4. </span><span class="content">Integration with Fetch</span><a class="self-link" href="#fetch-integration"></a></h3>
