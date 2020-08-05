@@ -196,7 +196,7 @@ PixelXDimensions: 800
 PixelYDimensions: 600
 ```
 
-And it sends the following `Vary` header along with the response, so that <a htpp header>Sec-CH-DPR</a> header field is added to the cache key:
+And it sends the following `Vary` header along with the response, so that <a http-header>Sec-CH-DPR</a> header field is added to the cache key:
 
 ```
 Vary: DPR
