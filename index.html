@@ -1486,7 +1486,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
   <link href="http://github.com/eeeps/responsive-image-client-hints" rel="canonical">
-  <meta content="7fc7113dbd439a57d085e850ce95eacde20b0284" name="document-revision">
+  <meta content="dbbdecd5aceccd08c5f1f84065fd9a27a3164149" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2085,8 +2085,9 @@ Parts of this work may be from another specification document.  If so, those par
      <ol class="toc">
       <li><a href="#sec-ch-width"><span class="secno">2.1</span> <span class="content">The <code>Sec-CH-Width</code> Header Field</span></a>
       <li><a href="#sec-ch-viewport-width"><span class="secno">2.2</span> <span class="content">The <code>Sec-CH-Viewport-Width</code> Header Field</span></a>
-      <li><a href="#sec-ch-dpr"><span class="secno">2.3</span> <span class="content">The <code>Sec-CH-DPR</code> Header Field</span></a>
-      <li><a href="#fetch-integration"><span class="secno">2.4</span> <span class="content">Integration with Fetch</span></a>
+      <li><a href="#sec-ch-viewport-height"><span class="secno">2.3</span> <span class="content">The <code>Sec-CH-Viewport-Height</code> Header Field</span></a>
+      <li><a href="#sec-ch-dpr"><span class="secno">2.4</span> <span class="content">The <code>Sec-CH-DPR</code> Header Field</span></a>
+      <li><a href="#fetch-integration"><span class="secno">2.5</span> <span class="content">Integration with Fetch</span></a>
      </ol>
     <li>
      <a href="#security-privacy"><span class="secno">3</span> <span class="content">Security and Privacy Considerations</span></a>
@@ -2207,9 +2208,29 @@ Sec-CH-DPR: 3
 </pre>
     <p>In the absence of any other client hints, the server does the best it can and sends back a 1000-pixel-wide response.</p>
    </div>
-   <h3 class="heading settled" data-level="2.3" id="sec-ch-dpr"><span class="secno">2.3. </span><span class="content">The <code>Sec-CH-DPR</code> Header Field</span><a class="self-link" href="#sec-ch-dpr"></a></h3>
-   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
-   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
+   <h3 class="heading settled" data-level="2.3" id="sec-ch-viewport-height"><span class="secno">2.3. </span><span class="content">The <code>Sec-CH-Viewport-Height</code> Header Field</span><a class="self-link" href="#sec-ch-viewport-height"></a></h3>
+   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-height">Sec-CH-Viewport-Height<a class="self-link" href="#http-headerdef-sec-ch-viewport-height"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> height. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1②">integer</a> greater than or equal to 0.</p>
+   <p>If the value is zero, it indicates that there is no <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a>.</p>
+   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight" id="ref-for-dom-window-innerheight">innerHeight</a></code>.</p>
+   <p class="note" role="note"><span>Note:</span> window.innerHeight includes horizontal scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width>; gettable with <code> document.documentElement.clientHeight</code>), instead?</p>
+   <div class="example" id="example-1423b456">
+    <a class="self-link" href="#example-1423b456"></a> 
+    <p>Given:</p>
+    <ol>
+     <li>
+      this markup: 
+<pre class="language-html highlight"><c- p>&lt;</c-><c- f>img</c-> <c- e>src</c-><c- o>=</c-><c- s>"a.jpg"</c-><c- p>></c->
+</pre>
+     <li>and a <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight" id="ref-for-dom-window-innerheight①">innerHeight</a></code> of 1000, 
+    </ol>
+    <p>...a user agent attaches the following header to the request for <code>a.jpg</code>:</p>
+<pre>Sec-CH-Viewport-Height: 1000
+</pre>
+    <p>In the absence of any other client hints, the server does the best it can and sends back an image optimized for a 1000-pixel-tall viewport.</p>
+   </div>
+   <h3 class="heading settled" data-level="2.4" id="sec-ch-dpr"><span class="secno">2.4. </span><span class="content">The <code>Sec-CH-DPR</code> Header Field</span><a class="self-link" href="#sec-ch-dpr"></a></h3>
+   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-④">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
+   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch③">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window③">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
    <p>Servers that send resources in response to requests including <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr②">Sec-CH-DPR</a> SHOULD <a href="https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a> to ensure that, even as the resolution of the width is changing, its <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height①">density-corrected intrinsic width</a> does not.</p>
    <div class="example" id="example-343f2449">
     <a class="self-link" href="#example-343f2449"></a> 
@@ -2234,7 +2255,7 @@ PixelYDimensions: 600
 <pre>Vary: DPR
 </pre>
    </div>
-   <h3 class="heading settled" data-level="2.4" id="fetch-integration"><span class="secno">2.4. </span><span class="content">Integration with Fetch</span><a class="self-link" href="#fetch-integration"></a></h3>
+   <h3 class="heading settled" data-level="2.5" id="fetch-integration"><span class="secno">2.5. </span><span class="content">Integration with Fetch</span><a class="self-link" href="#fetch-integration"></a></h3>
    <p>This specification’s <a data-link-type="abstract-op" href="https://wicg.github.io/client-hints-infrastructure/#fetch" id="ref-for-fetch">integration with Fetch</a> is defined as part of the <a data-link-type="biblio" href="#biblio-client-hints-infrastructure">[client-hints-infrastructure]</a> specification.</p>
    <h2 class="heading settled" data-level="3" id="security-privacy"><span class="secno">3. </span><span class="content">Security and Privacy Considerations</span><a class="self-link" href="#security-privacy"></a></h2>
    <h3 class="heading settled" data-level="3.1" id="secure-transport"><span class="secno">3.1. </span><span class="content">Secure Transport</span><a class="self-link" href="#secure-transport"></a></h3>
@@ -2322,7 +2343,7 @@ PixelYDimensions: 600
    </dl>
    <p>Specification document:</p>
    <dl>
-    <dt data-md>this specification (<a href="#sec-ch-dpr">§ 2.3 The Sec-CH-DPR Header Field</a>)
+    <dt data-md>this specification (<a href="#sec-ch-dpr">§ 2.4 The Sec-CH-DPR Header Field</a>)
    </dl>
   </main>
   <div data-fill-with="conformance">
@@ -2474,7 +2495,8 @@ PixelYDimensions: 600
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#http-headerdef-sec-ch-dpr">Sec-CH-DPR</a><span>, in §2.3</span>
+   <li><a href="#http-headerdef-sec-ch-dpr">Sec-CH-DPR</a><span>, in §2.4</span>
+   <li><a href="#http-headerdef-sec-ch-viewport-height">Sec-CH-Viewport-Height</a><span>, in §2.3</span>
    <li><a href="#http-headerdef-sec-ch-viewport-width">Sec-CH-Viewport-Width</a><span>, in §2.2</span>
    <li><a href="#http-headerdef-sec-ch-width">Sec-CH-Width</a><span>, in §2.1</span>
   </ul>
@@ -2487,7 +2509,7 @@ PixelYDimensions: 600
   <aside class="dfn-panel" data-for="term-for-fetch">
    <a href="https://wicg.github.io/client-hints-infrastructure/#fetch">https://wicg.github.io/client-hints-infrastructure/#fetch</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-fetch">2.4. Integration with Fetch</a>
+    <li><a href="#ref-for-fetch">2.5. Integration with Fetch</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-px">
@@ -2506,7 +2528,13 @@ PixelYDimensions: 600
    <a href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio">https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-window-devicepixelratio">2.1. The Sec-CH-Width Header Field</a> <a href="#ref-for-dom-window-devicepixelratio①">(2)</a> <a href="#ref-for-dom-window-devicepixelratio②">(3)</a>
-    <li><a href="#ref-for-dom-window-devicepixelratio③">2.3. The Sec-CH-DPR Header Field</a> <a href="#ref-for-dom-window-devicepixelratio④">(2)</a>
+    <li><a href="#ref-for-dom-window-devicepixelratio③">2.4. The Sec-CH-DPR Header Field</a> <a href="#ref-for-dom-window-devicepixelratio④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-window-innerheight">
+   <a href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight">https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-window-innerheight">2.3. The Sec-CH-Viewport-Height Header Field</a> <a href="#ref-for-dom-window-innerheight①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-window-innerwidth">
@@ -2520,7 +2548,8 @@ PixelYDimensions: 600
    <ul>
     <li><a href="#ref-for-concept-fetch">2.1. The Sec-CH-Width Header Field</a>
     <li><a href="#ref-for-concept-fetch①">2.2. The Sec-CH-Viewport-Width Header Field</a>
-    <li><a href="#ref-for-concept-fetch②">2.3. The Sec-CH-DPR Header Field</a>
+    <li><a href="#ref-for-concept-fetch②">2.3. The Sec-CH-Viewport-Height Header Field</a>
+    <li><a href="#ref-for-concept-fetch③">2.4. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-passive-fingerprinting">
@@ -2534,14 +2563,15 @@ PixelYDimensions: 600
    <ul>
     <li><a href="#ref-for-window">2.1. The Sec-CH-Width Header Field</a>
     <li><a href="#ref-for-window①">2.2. The Sec-CH-Viewport-Width Header Field</a>
-    <li><a href="#ref-for-window②">2.3. The Sec-CH-DPR Header Field</a>
+    <li><a href="#ref-for-window②">2.3. The Sec-CH-Viewport-Height Header Field</a>
+    <li><a href="#ref-for-window③">2.4. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-density-corrected-intrinsic-width-and-height">
    <a href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height">https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-density-corrected-intrinsic-width-and-height">1. Introduction</a>
-    <li><a href="#ref-for-density-corrected-intrinsic-width-and-height①">2.3. The Sec-CH-DPR Header Field</a>
+    <li><a href="#ref-for-density-corrected-intrinsic-width-and-height①">2.4. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-the-img-element">
@@ -2578,7 +2608,7 @@ PixelYDimensions: 600
   <aside class="dfn-panel" data-for="term-for-section-3.3.2">
    <a href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2">https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-section-3.3.2">2.3. The Sec-CH-DPR Header Field</a>
+    <li><a href="#ref-for-section-3.3.2">2.4. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-section-3.3.1">
@@ -2586,6 +2616,7 @@ PixelYDimensions: 600
    <ul>
     <li><a href="#ref-for-section-3.3.1">2.1. The Sec-CH-Width Header Field</a>
     <li><a href="#ref-for-section-3.3.1①">2.2. The Sec-CH-Viewport-Width Header Field</a>
+    <li><a href="#ref-for-section-3.3.1②">2.3. The Sec-CH-Viewport-Height Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-">
@@ -2593,7 +2624,8 @@ PixelYDimensions: 600
    <ul>
     <li><a href="#termref-for-">2.1. The Sec-CH-Width Header Field</a>
     <li><a href="#termref-for-">2.2. The Sec-CH-Viewport-Width Header Field</a>
-    <li><a href="#termref-for-">2.3. The Sec-CH-DPR Header Field</a>
+    <li><a href="#termref-for-">2.3. The Sec-CH-Viewport-Height Header Field</a>
+    <li><a href="#termref-for-">2.4. The Sec-CH-DPR Header Field</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-permissions-policy-header">
@@ -2620,6 +2652,7 @@ PixelYDimensions: 600
     <ul>
      <li><span class="dfn-paneled" id="term-for-dom-element-clientwidth">clientWidth</span>
      <li><span class="dfn-paneled" id="term-for-dom-window-devicepixelratio">devicePixelRatio</span>
+     <li><span class="dfn-paneled" id="term-for-dom-window-innerheight">innerHeight</span>
      <li><span class="dfn-paneled" id="term-for-dom-window-innerwidth">innerWidth</span>
     </ul>
    <li>
@@ -2704,7 +2737,7 @@ PixelYDimensions: 600
    <b><a href="#http-headerdef-sec-ch-dpr">#http-headerdef-sec-ch-dpr</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-http-headerdef-sec-ch-dpr">2.1. The Sec-CH-Width Header Field</a> <a href="#ref-for-http-headerdef-sec-ch-dpr①">(2)</a>
-    <li><a href="#ref-for-http-headerdef-sec-ch-dpr②">2.3. The Sec-CH-DPR Header Field</a> <a href="#ref-for-http-headerdef-sec-ch-dpr③">(2)</a>
+    <li><a href="#ref-for-http-headerdef-sec-ch-dpr②">2.4. The Sec-CH-DPR Header Field</a> <a href="#ref-for-http-headerdef-sec-ch-dpr③">(2)</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

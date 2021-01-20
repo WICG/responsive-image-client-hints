@@ -190,7 +190,7 @@ Given:
 Sec-CH-Viewport-Height: 1000
 ````
 
-In the absence of any other client hints, the server does the best it can and sends back a 1000-pixel-tall response.
+In the absence of any other client hints, the server does the best it can and sends back an image optimized for a 1000-pixel-tall viewport.
 
 </div>
 
