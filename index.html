@@ -1486,7 +1486,7 @@ Possible extra rowspan handling
 </style>
   <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
   <link href="http://github.com/eeeps/responsive-image-client-hints" rel="canonical">
-  <meta content="dbbdecd5aceccd08c5f1f84065fd9a27a3164149" name="document-revision">
+  <meta content="7b0eda9f08109b96763642ba6366eaaa524f711b" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -2043,7 +2043,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Responsive Image Client Hints</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2021-01-19">19 January 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">, <time class="dt-updated" datetime="2021-01-20">20 January 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2065,7 +2065,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <div data-fill-with="warning"></div>
    <p class="copyright" data-fill-with="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="https://licensebuttons.net/p/zero/1.0/80x15.png"></a> To the extent possible under law, the editors have waived all copyright
 and related or neighboring rights to this work.
-In addition, as of 19 January 2021,
+In addition, as of 20 January 2021,
 the editors have made this specification available under the <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 Parts of this work may be from another specification document.  If so, those parts are instead covered by the license of that specification document. </p>
@@ -2192,7 +2192,7 @@ Sec-CH-DPR: 3
    <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-width">Sec-CH-Viewport-Width<a class="self-link" href="#http-headerdef-sec-ch-viewport-width"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> width. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-②">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1①">integer</a> greater than or equal to 0.</p>
    <p>If the value is zero, it indicates that there is no <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a>.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch①">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerwidth" id="ref-for-dom-window-innerwidth">innerWidth</a></code>.</p>
-   <p class="note" role="note"><span>Note:</span> window.innerWidth includes scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width>; gettable with <code> document.documentElement.clientWidth</code>), instead?</p>
+   <p class="note" role="note"><span>Note:</span> window.innerWidth includes scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width); gettable with <code> document.documentElement.clientWidth</code>), instead?</p>
    <div class="example" id="example-7547b197">
     <a class="self-link" href="#example-7547b197"></a> 
     <p>Given:</p>
@@ -2212,7 +2212,7 @@ Sec-CH-DPR: 3
    <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-height">Sec-CH-Viewport-Height<a class="self-link" href="#http-headerdef-sec-ch-viewport-height"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> height. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1②">integer</a> greater than or equal to 0.</p>
    <p>If the value is zero, it indicates that there is no <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a>.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight" id="ref-for-dom-window-innerheight">innerHeight</a></code>.</p>
-   <p class="note" role="note"><span>Note:</span> window.innerHeight includes horizontal scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width>; gettable with <code> document.documentElement.clientHeight</code>), instead?</p>
+   <p class="note" role="note"><span>Note:</span> window.innerHeight includes horizontal scrollbar width. Do we want to use the height of the initial containing block (minus any scrollbar height); gettable with <code> document.documentElement.clientHeight</code>), instead?</p>
    <div class="example" id="example-1423b456">
     <a class="self-link" href="#example-1423b456"></a> 
     <p>Given:</p>

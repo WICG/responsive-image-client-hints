@@ -130,7 +130,7 @@ If the value is zero, it indicates that there is no <a href="https://www.w3.org/
 
 For [=fetches=] within web contexts, its value SHOULD be the {{Window}}'s current {{Window/innerWidth}}.
 
-Note: window.innerWidth includes scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width>; gettable with <code>
+Note: window.innerWidth includes scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width); gettable with <code>
 document.documentElement.clientWidth</code>), instead?
 
 <div class="example">
@@ -167,7 +167,7 @@ If the value is zero, it indicates that there is no <a href="https://www.w3.org/
 
 For [=fetches=] within web contexts, its value SHOULD be the {{Window}}'s current {{Window/innerHeight}}.
 
-Note: window.innerHeight includes horizontal scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width>; gettable with <code>
+Note: window.innerHeight includes horizontal scrollbar width. Do we want to use the height of the initial containing block (minus any scrollbar height); gettable with <code>
 document.documentElement.clientHeight</code>), instead?
 
 <div class="example">
