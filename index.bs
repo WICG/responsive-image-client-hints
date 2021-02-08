@@ -2,7 +2,7 @@
 Title: Responsive Image Client Hints
 Status: CG-DRAFT
 Group: WICG
-ED: http://github.com/eeeps/responsive-image-client-hints
+ED: https://wicg.github.io/responsive-image-client-hints
 Shortname: respimg-ch
 Level: 1
 Editor: Eric Portis, Cloudinary, e@ericportis.com, https://ericportis.com
