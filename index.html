@@ -4,9 +4,9 @@
   <title>Responsive Image Client Hints</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
+  <meta content="Bikeshed version 3d6a6fcbb, updated Wed Jun 16 16:19:39 2021 -0700" name="generator">
   <link href="https://wicg.github.io/responsive-image-client-hints" rel="canonical">
-  <meta content="c56244d16c0585a21a14fd62dea249435f8cda6f" name="document-revision">
+  <meta content="83823f1b615218cb3673b98b864460ae81f03fda" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -113,9 +113,9 @@ pre .property::before, pre .property::after {
     --ins-bg: transparent;
 
     --a-normal-text: #034575;
-    --a-normal-underline: #707070;
+    --a-normal-underline: #bbb;
     --a-visited-text: var(--a-normal-text);
-    --a-visited-underline: #bbb;
+    --a-visited-underline: #707070;
     --a-hover-bg: rgba(75%, 75%, 75%, .25);
     --a-active-text: #c00;
     --a-active-underline: #c00;
@@ -563,7 +563,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Responsive Image Client Hints</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-02-24">24 February 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-06-22">22 June 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -676,8 +676,8 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
       <li>allows resource generation to be informed by incoming requests.
      </ul>
    </ul>
-   <div class="example" id="example-0d58c519">
-    <a class="self-link" href="#example-0d58c519"></a> ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this: 
+   <div class="example" id="example-4eefb49f">
+    <a class="self-link" href="#example-4eefb49f"></a> ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this: 
 <pre class="language-html highlight"><c- p>&lt;</c-><c- f>img</c->
 	<c- e>src</c-><c- o>=</c-><c- s>"https://media.shoeshoppe.biz/cool-shoe-hero.jpg"</c->
 	<c- e>sizes</c-><c- o>=</c-><c- s>"(min-width: 800px) 800px, 100vw"</c->
@@ -685,7 +685,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
 <c- p>/></c->
 </pre>
     <p>...and send the following <a data-link-type="http-header" href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1" id="ref-for-section-3.1">Accept-CH</a> and <a data-link-type="http-header" href="https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header" id="ref-for-permissions-policy-header">Permissions-Policy</a> response headers along with their root HTML document:</p>
-<pre>Accept-CH: CH-DPR, CH-Width
+<pre>Accept-CH: Sec-CH-DPR, Sec-CH-Width
 Permissions-Policy: ch-dpr=(self "https://media.shoeshoppe.biz"), ch-width=(self "https://media.shoeshoppe.biz")
 </pre>
     <p>A user agent running on a 3x device, with a 400-px-wide viewport, then sends the following headers along with the image request:</p>
@@ -764,8 +764,8 @@ Sec-CH-DPR: 3
    <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="termref-for-④">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch③">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window③">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
    <p>Servers that send resources in response to requests including <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr②">Sec-CH-DPR</a> SHOULD <a href="https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a> to ensure that, even as the resolution of the width is changing, its <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/images.html#density-corrected-intrinsic-width-and-height" id="ref-for-density-corrected-intrinsic-width-and-height①">density-corrected intrinsic width</a> does not.</p>
-   <div class="example" id="example-343f2449">
-    <a class="self-link" href="#example-343f2449"></a> 
+   <div class="example" id="example-287b173c">
+    <a class="self-link" href="#example-287b173c"></a> 
     <p>Given:</p>
     <ol>
      <li>
@@ -784,7 +784,7 @@ PixelXDimensions: 800
 PixelYDimensions: 600
 </pre>
     <p>And it sends the following <code>Vary</code> header along with the response, so that <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr③">Sec-CH-DPR</a> header field is added to the cache key:</p>
-<pre>Vary: DPR
+<pre>Vary: Sec-CH-DPR
 </pre>
    </div>
    <h3 class="heading settled" data-level="2.5" id="fetch-integration"><span class="secno">2.5. </span><span class="content">Integration with Fetch</span><a class="self-link" href="#fetch-integration"></a></h3>
@@ -1103,7 +1103,7 @@ PixelYDimensions: 600
    <dt id="biblio-permissions-policy-1">[PERMISSIONS-POLICY-1]
    <dd>Ian Clelland. <a href="https://www.w3.org/TR/permissions-policy-1/">Permissions Policy</a>. 16 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
    <dt id="biblio-rfc3864">[RFC3864]
-   <dd>G. Klyne; M. Nottingham; J. Mogul. <a href="https://tools.ietf.org/html/rfc3864">Registration Procedures for Message Header Fields</a>. September 2004. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc3864">https://tools.ietf.org/html/rfc3864</a>
+   <dd>G. Klyne; M. Nottingham; J. Mogul. <a href="https://datatracker.ietf.org/doc/html/rfc3864">Registration Procedures for Message Header Fields</a>. September 2004. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc3864">https://datatracker.ietf.org/doc/html/rfc3864</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
