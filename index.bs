@@ -59,7 +59,7 @@ ShoeShoppe.biz wants to send responsive hero images on their product pages. With
 ...and send the following <a http-header for="client hints">Accept-CH</a> and <a http-header>Permissions-Policy</a> response headers along with their root HTML document:
 
 ```
-Accept-CH: CH-DPR, CH-Width
+Accept-CH: Sec-CH-DPR, Sec-CH-Width
 Permissions-Policy: ch-dpr=(self "https://media.shoeshoppe.biz"), ch-width=(self "https://media.shoeshoppe.biz")
 ```
 
@@ -237,7 +237,7 @@ PixelYDimensions: 600
 And it sends the following `Vary` header along with the response, so that <a http-header>Sec-CH-DPR</a> header field is added to the cache key:
 
 ```
-Vary: DPR
+Vary: Sec-CH-DPR
 ```
 
 </div>
