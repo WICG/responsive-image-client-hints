@@ -87,7 +87,7 @@ The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field
 
 If the value is zero, it indicates that the image will not be displayed.
 
-For [=fetches=] trigged by <{img}> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the {{Window}}'s current {{Window/devicePixelRatio}}.
+For [=fetches=] triggered by <{img}> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the {{Window}}'s current {{Window/devicePixelRatio}}.
 
 <div class="example">
 Given:
