@@ -4,9 +4,9 @@
   <title>Responsive Image Client Hints</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 5fcd28d6d, updated Tue May 30 13:12:11 2023 -0700" name="generator">
+  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://wicg.github.io/responsive-image-client-hints" rel="canonical">
-  <meta content="7987b92c125c4e7119c05d1a3193486d81bf9ddb" name="document-revision">
+  <meta content="0f389206696cad1177f8279b6713a9f6a2ba9090" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -640,7 +640,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Responsive Image Client Hints</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-15">15 June 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-04-19">19 April 2024</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -660,7 +660,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 the Contributors to the Responsive Image Client Hints Specification, published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 the Contributors to the Responsive Image Client Hints Specification, published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
 A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
    <hr title="Separator for header">
   </div>
@@ -755,9 +755,9 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
    <div class="example" id="example-4eefb49f">
     <a class="self-link" href="#example-4eefb49f"></a> ShoeShoppe.biz wants to send responsive hero images on their product pages. With the responsive image client hints, they author markup like this: 
 <pre class="language-html highlight"><c- p>&lt;</c-><c- f>img</c->
-	<c- e>src</c-><c- o>=</c-><c- s>"https://media.shoeshoppe.biz/cool-shoe-hero.jpg"</c->
-	<c- e>sizes</c-><c- o>=</c-><c- s>"(min-width: 800px) 800px, 100vw"</c->
-	<c- e>alt</c-><c- o>=</c-><c- s>"A cool shoe"</c->
+  <c- e>src</c-><c- o>=</c-><c- s>"https://media.shoeshoppe.biz/cool-shoe-hero.jpg"</c->
+  <c- e>sizes</c-><c- o>=</c-><c- s>"(min-width: 800px) 800px, 100vw"</c->
+  <c- e>alt</c-><c- o>=</c-><c- s>"A cool shoe"</c->
 <c- p>/></c->
 </pre>
     <p>...and send the following <a data-link-type="http-header" href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1" id="ref-for-section-3.1">Accept-CH</a> and <a data-link-type="http-header" href="https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header" id="ref-for-permissions-policy-header">Permissions-Policy</a> response headers along with their root HTML document:</p>
@@ -773,7 +773,7 @@ Sec-CH-DPR: 3
    </div>
    <h2 class="heading settled" data-level="2" id="responsive-image-hints"><span class="secno">2. </span><span class="content">Responsive Image Hints</span><a class="self-link" href="#responsive-image-hints"></a></h2>
    <h3 class="heading settled" data-level="2.1" id="sec-ch-width"><span class="secno">2.1. </span><span class="content">The <code>Sec-CH-Width</code> Header Field</span><a class="self-link" href="#sec-ch-width"></a></h3>
-   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-width">Sec-CH-Width</dfn></code> request header field gives a server the layout width of the image, <em>in device pixels</em> (or printed dots). It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="ref-for-something①">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1">integer</a> greater than or equal to 0.</p>
+   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-width">Sec-CH-Width</dfn></code> request header field gives a server the layout width of the image, <em>in device pixels</em> (or printed dots). It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#" id="ref-for-something①">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#section-3.3.1" id="ref-for-section-3.3.1">integer</a> greater than or equal to 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch">fetches</a> triggered by <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>’s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio">devicePixelRatio</a></code>.</p>
    <p>It MUST NOT be sent when the user-agent is using a fallback <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a>. Which is to say, if an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> is <code>100vw</code> because any of the conditions in step 5 of <a href="https://html.spec.whatwg.org/multipage/images.html#parsing-a-sizes-attribute">parse a sizes attribute</a> returned true, <code><a data-link-type="http-header" href="#http-headerdef-sec-ch-width" id="ref-for-http-headerdef-sec-ch-width">Sec-CH-Width</a></code> MUST NOT be sent.</p>
    <p class="note" role="note"><span class="marker">Note:</span> We should probably specify how user-agents track this state? I guess by setting a property like <em>fallback sizes used</em> (or whatever) on <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element③">img</a></code>.</p>
@@ -799,7 +799,7 @@ Sec-CH-DPR: 3
    </div>
    <p class="note" role="note"><span class="marker">Note:</span> does this get sent when there’s no <code>sizes</code>?</p>
    <h3 class="heading settled" data-level="2.2" id="sec-ch-viewport-width"><span class="secno">2.2. </span><span class="content">The <code>Sec-CH-Viewport-Width</code> Header Field</span><a class="self-link" href="#sec-ch-viewport-width"></a></h3>
-   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-width">Sec-CH-Viewport-Width<a class="self-link" href="#http-headerdef-sec-ch-viewport-width"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> width. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="ref-for-something②">Structured Header</a> whose value MUST be an <a data-link-type="dfn">Integer</a> greater than or equal to 0.</p>
+   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-width">Sec-CH-Viewport-Width<a class="self-link" href="#http-headerdef-sec-ch-viewport-width"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> width. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#" id="ref-for-something②">Structured Header</a> whose value MUST be an <a data-link-type="dfn">Integer</a> greater than or equal to 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch①">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window①">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerwidth" id="ref-for-dom-window-innerwidth">innerWidth</a></code>.</p>
    <p class="note" role="note"><span class="marker">Note:</span> <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerwidth" id="ref-for-dom-window-innerwidth①">innerWidth</a></code> (and <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight" id="ref-for-dom-window-innerheight">innerHeight</a></code>) return zero when there is no viewport, which can happen when an <code>iframe</code> is styled with <code>display: none</code> or after a call to <code>iframe.remove()</code>. Servers should plan for zero-values, and respond as best they can; for instance, in the case of image requests, with resources clamped to some minimum (greater-than-zero) size.</p>
    <p class="note" role="note"><span class="marker">Note:</span> window.innerWidth includes scrollbar width. Do we want to use the width of the initial containing block (minus any scrollbar width); gettable with <code> document.documentElement.clientWidth</code>), instead?</p>
@@ -819,7 +819,7 @@ Sec-CH-DPR: 3
     <p>In the absence of any other client hints, the server does the best it can and sends back a 1000-pixel-wide response.</p>
    </div>
    <h3 class="heading settled" data-level="2.3" id="sec-ch-viewport-height"><span class="secno">2.3. </span><span class="content">The <code>Sec-CH-Viewport-Height</code> Header Field</span><a class="self-link" href="#sec-ch-viewport-height"></a></h3>
-   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-height">Sec-CH-Viewport-Height<a class="self-link" href="#http-headerdef-sec-ch-viewport-height"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> height. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="ref-for-something③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1" id="ref-for-section-3.3.1①">integer</a> greater than or equal to 0.</p>
+   <p>The <code><dfn data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-viewport-height">Sec-CH-Viewport-Height<a class="self-link" href="#http-headerdef-sec-ch-viewport-height"></a></dfn></code> request header field gives a server information about the user-agent’s current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> height. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#" id="ref-for-something③">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#section-3.3.1" id="ref-for-section-3.3.1①">integer</a> greater than or equal to 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch②">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window②">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight" id="ref-for-dom-window-innerheight①">innerHeight</a></code>.</p>
    <p class="note" role="note"><span class="marker">Note:</span> window.innerHeight includes horizontal scrollbar width. Do we want to use the height of the initial containing block (minus any scrollbar height); gettable with <code> document.documentElement.clientHeight</code>), instead?</p>
    <div class="example" id="example-1423b456">
@@ -838,7 +838,7 @@ Sec-CH-DPR: 3
     <p>In the absence of any other client hints, the server does the best it can and sends back an image optimized for a 1000-pixel-tall viewport.</p>
    </div>
    <h3 class="heading settled" data-level="2.4" id="sec-ch-dpr"><span class="secno">2.4. </span><span class="content">The <code>Sec-CH-DPR</code> Header Field</span><a class="self-link" href="#sec-ch-dpr"></a></h3>
-   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#" id="ref-for-something④">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
+   <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-dpr">Sec-CH-DPR</dfn></code> request header field gives a server information about the user-agent’s current device pixel ratio. It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#" id="ref-for-something④">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#section-3.3.2" id="ref-for-section-3.3.2">decimal</a> greater than 0.</p>
    <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch③">fetches</a> within web contexts, its value SHOULD be the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window③">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio③">devicePixelRatio</a></code>.</p>
    <p>Servers that send resources in response to requests including <a data-link-type="http-header" href="#http-headerdef-sec-ch-dpr" id="ref-for-http-headerdef-sec-ch-dpr②">Sec-CH-DPR</a> SHOULD <a href="https://github.com/whatwg/html/pull/5574">adjust those resource’s intrinsic resolutions via metadata</a> to ensure that, even as the resolution of the width is changing, its <a data-link-type="dfn">density-corrected intrinsic width</a> does not.</p>
    <div class="example" id="example-287b173c">
@@ -992,16 +992,16 @@ PixelYDimensions: 600
      <li><span class="dfn-paneled" id="fd0770bc">client hints</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[I-D.ietf-httpbis-header-structure]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="8cec60e9">decimal</span>
-     <li><span class="dfn-paneled" id="089b1354">integer</span>
-     <li><span class="dfn-paneled" id="455b8b09">structured header</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[PERMISSIONS-POLICY-1]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="0e3ba2bf">permissions-policy</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[RFC8941]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="d4a23d72">decimal</span>
+     <li><span class="dfn-paneled" id="2d9395b3">integer</span>
+     <li><span class="dfn-paneled" id="80c33376">structured header</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1019,12 +1019,12 @@ PixelYDimensions: 600
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-i-dietf-httpbis-client-hints">[I-D.ietf-httpbis-client-hints]
    <dd>Ilya Grigorik. <a href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints"><cite>HTTP Client Hints</cite></a>. ID. URL: <a href="https://tools.ietf.org/html/draft-ietf-httpbis-client-hints">https://tools.ietf.org/html/draft-ietf-httpbis-client-hints</a>
-   <dt id="biblio-i-dietf-httpbis-header-structure">[I-D.ietf-httpbis-header-structure]
-   <dd>Mark Nottingham; Poul-Henning Kamp. <a href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure"><cite>Structured Headers for HTTP</cite></a>. ID. URL: <a href="https://tools.ietf.org/html/draft-ietf-httpbis-header-structure">https://tools.ietf.org/html/draft-ietf-httpbis-header-structure</a>
    <dt id="biblio-respimg-usecases">[RESPIMG-USECASES]
    <dd>Marcos Caceres; et al. <a href="https://usecases.responsiveimages.org"><cite>Use Cases and Requirements for Standardizing Responsive Images</cite></a>. URL: <a href="https://usecases.responsiveimages.org">https://usecases.responsiveimages.org</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-rfc8941">[RFC8941]
+   <dd>M. Nottingham; P-H. Kamp. <a href="https://httpwg.org/specs/rfc8941.html"><cite>Structured Field Values for HTTP</cite></a>. February 2021. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc8941.html">https://httpwg.org/specs/rfc8941.html</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -1363,10 +1363,10 @@ window.dfnpanelData['29399d44'] = {"dfnID": "29399d44", "url": "https://html.spe
 window.dfnpanelData['c219fdf4'] = {"dfnID": "c219fdf4", "url": "https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-srcset", "dfnText": "srcset", "refSections": [{"refs": [{"id": "ref-for-attr-img-srcset"}], "title": "1. Introduction"}], "external": true};
 window.dfnpanelData['71da2fe7'] = {"dfnID": "71da2fe7", "url": "https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#section-3.1", "dfnText": "accept-ch", "refSections": [{"refs": [{"id": "ref-for-section-3.1"}], "title": "1. Introduction"}], "external": true};
 window.dfnpanelData['fd0770bc'] = {"dfnID": "fd0770bc", "url": "https://tools.ietf.org/html/draft-ietf-httpbis-client-hints#", "dfnText": "client hints", "refSections": [{"refs": [{"id": "ref-for-something"}], "title": "1. Introduction"}], "external": true};
-window.dfnpanelData['8cec60e9'] = {"dfnID": "8cec60e9", "url": "https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.2", "dfnText": "decimal", "refSections": [{"refs": [{"id": "ref-for-section-3.3.2"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
-window.dfnpanelData['089b1354'] = {"dfnID": "089b1354", "url": "https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#section-3.3.1", "dfnText": "integer", "refSections": [{"refs": [{"id": "ref-for-section-3.3.1"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-section-3.3.1\u2460"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}], "external": true};
-window.dfnpanelData['455b8b09'] = {"dfnID": "455b8b09", "url": "https://tools.ietf.org/html/draft-ietf-httpbis-header-structure#", "dfnText": "structured header", "refSections": [{"refs": [{"id": "ref-for-something\u2460"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-something\u2461"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}, {"refs": [{"id": "ref-for-something\u2462"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}, {"refs": [{"id": "ref-for-something\u2463"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
 window.dfnpanelData['0e3ba2bf'] = {"dfnID": "0e3ba2bf", "url": "https://w3c.github.io/webappsec-permissions-policy/#permissions-policy-header", "dfnText": "permissions-policy", "refSections": [{"refs": [{"id": "ref-for-permissions-policy-header"}], "title": "1. Introduction"}], "external": true};
+window.dfnpanelData['d4a23d72'] = {"dfnID": "d4a23d72", "url": "https://tools.ietf.org/html/rfc8941#section-3.3.2", "dfnText": "decimal", "refSections": [{"refs": [{"id": "ref-for-section-3.3.2"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
+window.dfnpanelData['2d9395b3'] = {"dfnID": "2d9395b3", "url": "https://tools.ietf.org/html/rfc8941#section-3.3.1", "dfnText": "integer", "refSections": [{"refs": [{"id": "ref-for-section-3.3.1"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-section-3.3.1\u2460"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}], "external": true};
+window.dfnpanelData['80c33376'] = {"dfnID": "80c33376", "url": "https://tools.ietf.org/html/rfc8941#", "dfnText": "structured header", "refSections": [{"refs": [{"id": "ref-for-something\u2460"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-something\u2461"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}, {"refs": [{"id": "ref-for-something\u2462"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}, {"refs": [{"id": "ref-for-something\u2463"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
 window.dfnpanelData['http-headerdef-sec-ch-width'] = {"dfnID": "http-headerdef-sec-ch-width", "url": "#http-headerdef-sec-ch-width", "dfnText": "Sec-CH-Width", "refSections": [{"refs": [{"id": "ref-for-http-headerdef-sec-ch-width"}, {"id": "ref-for-http-headerdef-sec-ch-width\u2460"}, {"id": "ref-for-http-headerdef-sec-ch-width\u2461"}, {"id": "ref-for-http-headerdef-sec-ch-width\u2462"}], "title": "2.1. The Sec-CH-Width Header Field"}], "external": false};
 window.dfnpanelData['http-headerdef-sec-ch-dpr'] = {"dfnID": "http-headerdef-sec-ch-dpr", "url": "#http-headerdef-sec-ch-dpr", "dfnText": "Sec-CH-DPR", "refSections": [{"refs": [{"id": "ref-for-http-headerdef-sec-ch-dpr"}, {"id": "ref-for-http-headerdef-sec-ch-dpr\u2460"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-http-headerdef-sec-ch-dpr\u2461"}, {"id": "ref-for-http-headerdef-sec-ch-dpr\u2462"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": false};
 </script>
