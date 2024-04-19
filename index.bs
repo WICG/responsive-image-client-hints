@@ -129,7 +129,7 @@ Note: does this get sent when there's no `sizes`?
 The <code>Sec-CH-Viewport-Width</code> Header Field {#sec-ch-viewport-width}
 -------
 
-The <code><dfn http-header export>Sec-CH-Viewport-Width</dfn></code> request header field gives a server information about the user-agent's current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> width. It is a [=Structured Header=] whose value MUST be an [=structured fields/Integer=] greater than or equal to 0.
+The <code><dfn http-header export>Sec-CH-Viewport-Width</dfn></code> request header field gives a server information about the user-agent's current <a href="https://www.w3.org/TR/CSS2/visuren.html#viewport">viewport</a> width. It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
 
 For [=fetches=] within web contexts, its value SHOULD be the {{Window}}'s current {{Window/innerWidth}}.
 
@@ -263,7 +263,7 @@ Security and Privacy Considerations {#security-privacy}
 Secure Transport {#secure-transport}
 ----------------
 
-Client Hints will not be delivered to non-secure endpoints (see the secure transport requirements in Section 2.2.1 of [[I-D.ietf-httpbis-client-hints]]). This means that information about the user's device pixel ratio and viewport size will not be leaked over plaintext channels, reducing the opportunity for network attackers to build a profile of a given agent's behavior over time.
+Client Hints will not be delivered to non-secure endpoints (see the secure transport requirements in Section 2.2.1 of [[RFC8942]]). This means that information about the user's device pixel ratio and viewport size will not be leaked over plaintext channels, reducing the opportunity for network attackers to build a profile of a given agent's behavior over time.
 
 
 Delegation {#delegation}
@@ -357,7 +357,7 @@ urlPrefix: https://tools.ietf.org/html/rfc8941; spec: rfc8941
             text: decimal; url: #section-3.3.2
     type: abstract-op
         text: serialize Structured Header; url: #section-4.1
-urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-client-hints; spec: I-D.ietf-httpbis-client-hints
+urlPrefix: https://tools.ietf.org/html/rfc8942; spec: rfc8942
     type: dfn
         text: client hints; url: #
     for: client hints
@@ -375,13 +375,6 @@ urlPrefix: https://www.w3.org/TR/fingerprinting-guidance/; spec: fingerprinting-
 </pre>
 <pre class="biblio">
 {
-  "I-D.ietf-httpbis-client-hints": {
-    "href": "https://tools.ietf.org/html/draft-ietf-httpbis-client-hints",
-    "title": "HTTP Client Hints",
-    "authors": [ "Ilya Grigorik" ],
-    "status": "ID",
-    "publisher": "IETF"
-  },
   "client-hints-infrastructure": {
     "authors": [ "Yoav Weiss" ],
     "href": "https://wicg.github.io/client-hints-infrastructure/",
