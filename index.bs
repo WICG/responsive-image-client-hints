@@ -344,7 +344,7 @@ Author/Change controller: IETF
 Specification document: this specification ([[#sec-ch-dpr]])
 
 <pre class="anchors">
-urlPrefix: https://tools.ietf.org/html/draft-ietf-httpbis-header-structure; spec: I-D.ietf-httpbis-header-structure
+urlPrefix: https://tools.ietf.org/html/rfc8941; spec: rfc8941
     type: dfn
         text: structured header; url: #
     for: structured header
@@ -371,13 +371,6 @@ urlPrefix: https://www.w3.org/TR/fingerprinting-guidance/; spec: fingerprinting-
 </pre>
 <pre class="biblio">
 {
-  "I-D.ietf-httpbis-header-structure": {
-    "authors": [ "Mark Nottingham", "Poul-Henning Kamp" ],
-    "href": "https://tools.ietf.org/html/draft-ietf-httpbis-header-structure",
-    "title": "Structured Headers for HTTP",
-    "status": "ID",
-    "publisher": "IETF"
-  },
   "I-D.ietf-httpbis-client-hints": {
     "href": "https://tools.ietf.org/html/draft-ietf-httpbis-client-hints",
     "title": "HTTP Client Hints",
