@@ -85,7 +85,7 @@ The <code>Sec-CH-Width</code> Header Field {#sec-ch-width}
 
 The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field gives a server the layout width of the image, *in device pixels* (or printed dots). It is a [=Structured Header=] whose value MUST be an [=structured header/integer=] greater than or equal to 0.
 
-For [=fetches=] triggered by <{img}> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the {{Window}}'s current {{Window/devicePixelRatio}}.
+For [=fetches=] triggered by <{img}> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the {{Window}}'s current {{Window/devicePixelRatio}}, and taking the <a spec='ecmascript' for='Math' lt='ceil(x)'>ceil()</a> of the result.
 
 It MUST NOT be sent when the user-agent is using a fallback <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a>. Which is to say, if an <{img}>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> is `100vw` because any of the conditions in step 5 of <a href="https://html.spec.whatwg.org/multipage/images.html#parsing-a-sizes-attribute">parse a sizes attribute</a> returned true, <code><a http-header>Sec-CH-Width</a></code> MUST NOT be sent.
 
