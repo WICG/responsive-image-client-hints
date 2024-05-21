@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://wicg.github.io/responsive-image-client-hints" rel="canonical">
-  <meta content="fc4e6d77f5ba3a966c9e82625083e4862dcf43ea" name="document-revision">
+  <meta content="ef1a4226c155bf015000d4e4f2c7d7e31aa0c077" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -640,7 +640,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Responsive Image Client Hints</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-04-19">19 April 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-05-21">21 May 2024</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -774,7 +774,7 @@ Sec-CH-DPR: 3
    <h2 class="heading settled" data-level="2" id="responsive-image-hints"><span class="secno">2. </span><span class="content">Responsive Image Hints</span><a class="self-link" href="#responsive-image-hints"></a></h2>
    <h3 class="heading settled" data-level="2.1" id="sec-ch-width"><span class="secno">2.1. </span><span class="content">The <code>Sec-CH-Width</code> Header Field</span><a class="self-link" href="#sec-ch-width"></a></h3>
    <p>The <code><dfn class="dfn-paneled" data-dfn-type="http-header" data-export id="http-headerdef-sec-ch-width">Sec-CH-Width</dfn></code> request header field gives a server the layout width of the image, <em>in device pixels</em> (or printed dots). It is a <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#" id="ref-for-something①">Structured Header</a> whose value MUST be an <a data-link-type="dfn" href="https://tools.ietf.org/html/rfc8941#section-3.3.1" id="ref-for-section-3.3.1">integer</a> greater than or equal to 0.</p>
-   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch">fetches</a> triggered by <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>’s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio">devicePixelRatio</a></code>.</p>
+   <p>For <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch" id="ref-for-concept-fetch">fetches</a> triggered by <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element①">img</a></code> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>’s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/nav-history-apis.html#window" id="ref-for-window">Window</a></code>'s current <code class="idl"><a data-link-type="idl" href="https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio" id="ref-for-dom-window-devicepixelratio">devicePixelRatio</a></code>, and taking the <a data-link-type="functionish" href="https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-math.ceil" id="ref-for-sec-math.ceil">ceil()</a> of the result.</p>
    <p>It MUST NOT be sent when the user-agent is using a fallback <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a>. Which is to say, if an <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element②">img</a></code>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> is <code>100vw</code> because any of the conditions in step 5 of <a href="https://html.spec.whatwg.org/multipage/images.html#parsing-a-sizes-attribute">parse a sizes attribute</a> returned true, <code><a data-link-type="http-header" href="#http-headerdef-sec-ch-width" id="ref-for-http-headerdef-sec-ch-width">Sec-CH-Width</a></code> MUST NOT be sent.</p>
    <p class="note" role="note"><span class="marker">Note:</span> We should probably specify how user-agents track this state? I guess by setting a property like <em>fallback sizes used</em> (or whatever) on <code><a data-link-type="element" href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element" id="ref-for-the-img-element③">img</a></code>.</p>
    <p class="note" role="note"><span class="marker">Note:</span> the <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> may be zero. Servers should plan to receive requests for images to fit zero-width layout containers, and respond as best they can; for instance, with images clamped to some minimum (greater-than-zero) width.</p>
@@ -968,6 +968,11 @@ PixelYDimensions: 600
      <li><span class="dfn-paneled" id="4ae8a70a">innerWidth</span>
     </ul>
    <li>
+    <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="ab2a5c85">ceil(x)</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[FETCH]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="a33db89a">fetch</span>
@@ -1011,6 +1016,8 @@ PixelYDimensions: 600
    <dd>Yoav Weiss. <a href="https://wicg.github.io/client-hints-infrastructure/"><cite>Client Hints Infrastructure</cite></a>. CG-DRAFT. URL: <a href="https://wicg.github.io/client-hints-infrastructure/">https://wicg.github.io/client-hints-infrastructure/</a>
    <dt id="biblio-cssom-view-1">[CSSOM-VIEW-1]
    <dd>Simon Pieters. <a href="https://drafts.csswg.org/cssom-view/"><cite>CSSOM View Module</cite></a>. URL: <a href="https://drafts.csswg.org/cssom-view/">https://drafts.csswg.org/cssom-view/</a>
+   <dt id="biblio-ecmascript">[ECMASCRIPT]
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-fetch">[FETCH]
    <dd>Anne van Kesteren. <a href="https://fetch.spec.whatwg.org/"><cite>Fetch Standard</cite></a>. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
    <dt id="biblio-fingerprinting-guidance">[FINGERPRINTING-GUIDANCE]
@@ -1355,6 +1362,7 @@ window.dfnpanelData['04dca76c'] = {"dfnID": "04dca76c", "url": "https://drafts.c
 window.dfnpanelData['c0159396'] = {"dfnID": "c0159396", "url": "https://drafts.csswg.org/cssom-view-1/#dom-window-devicepixelratio", "dfnText": "devicePixelRatio", "refSections": [{"refs": [{"id": "ref-for-dom-window-devicepixelratio"}, {"id": "ref-for-dom-window-devicepixelratio\u2460"}, {"id": "ref-for-dom-window-devicepixelratio\u2461"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-dom-window-devicepixelratio\u2462"}, {"id": "ref-for-dom-window-devicepixelratio\u2463"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
 window.dfnpanelData['fbaa3c26'] = {"dfnID": "fbaa3c26", "url": "https://drafts.csswg.org/cssom-view-1/#dom-window-innerheight", "dfnText": "innerHeight", "refSections": [{"refs": [{"id": "ref-for-dom-window-innerheight"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}, {"refs": [{"id": "ref-for-dom-window-innerheight\u2460"}, {"id": "ref-for-dom-window-innerheight\u2461"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}], "external": true};
 window.dfnpanelData['4ae8a70a'] = {"dfnID": "4ae8a70a", "url": "https://drafts.csswg.org/cssom-view-1/#dom-window-innerwidth", "dfnText": "innerWidth", "refSections": [{"refs": [{"id": "ref-for-dom-window-innerwidth"}, {"id": "ref-for-dom-window-innerwidth\u2460"}, {"id": "ref-for-dom-window-innerwidth\u2461"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}], "external": true};
+window.dfnpanelData['ab2a5c85'] = {"dfnID": "ab2a5c85", "url": "https://tc39.es/ecma262/multipage/numbers-and-dates.html#sec-math.ceil", "dfnText": "ceil(x)", "refSections": [{"refs": [{"id": "ref-for-sec-math.ceil"}], "title": "2.1. The Sec-CH-Width Header Field"}], "external": true};
 window.dfnpanelData['a33db89a'] = {"dfnID": "a33db89a", "url": "https://fetch.spec.whatwg.org/#concept-fetch", "dfnText": "fetch", "refSections": [{"refs": [{"id": "ref-for-concept-fetch"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-concept-fetch\u2460"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}, {"refs": [{"id": "ref-for-concept-fetch\u2461"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}, {"refs": [{"id": "ref-for-concept-fetch\u2462"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
 window.dfnpanelData['64452633'] = {"dfnID": "64452633", "url": "https://www.w3.org/TR/fingerprinting-guidance/#dfn-passive-fingerprinting", "dfnText": "passive fingerprinting", "refSections": [{"refs": [{"id": "ref-for-dfn-passive-fingerprinting"}], "title": "3.2. Delegation"}], "external": true};
 window.dfnpanelData['5d7209e9'] = {"dfnID": "5d7209e9", "url": "https://html.spec.whatwg.org/multipage/nav-history-apis.html#window", "dfnText": "Window", "refSections": [{"refs": [{"id": "ref-for-window"}], "title": "2.1. The Sec-CH-Width Header Field"}, {"refs": [{"id": "ref-for-window\u2460"}], "title": "2.2. The Sec-CH-Viewport-Width Header Field"}, {"refs": [{"id": "ref-for-window\u2461"}], "title": "2.3. The Sec-CH-Viewport-Height Header Field"}, {"refs": [{"id": "ref-for-window\u2462"}], "title": "2.4. The Sec-CH-DPR Header Field"}], "external": true};
