@@ -87,9 +87,7 @@ The <code><dfn http-header export>Sec-CH-Width</dfn></code> request header field
 
 For [=fetches=] triggered by <{img}> elements, its value SHOULD be calculated by multiplying the <a href="https://html.spec.whatwg.org/multipage/images.html#source-set">source set</a>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> by the {{Window}}'s current {{Window/devicePixelRatio}}, and taking the <a spec='ecmascript' for='Math' lt='ceil(x)'>ceil()</a> of the result.
 
-It MUST NOT be sent when the user-agent is using a fallback <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a>. Which is to say, if an <{img}>'s current <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> is `100vw` because any of the conditions in step 5 of <a href="https://html.spec.whatwg.org/multipage/images.html#parsing-a-sizes-attribute">parse a sizes attribute</a> returned true, <code><a http-header>Sec-CH-Width</a></code> MUST NOT be sent.
-
-Note: We should probably specify how user-agents track this state? I guess by setting a property like <em>fallback sizes used</em> (or whatever) on <{img}>.
+It MUST NOT be sent when the user-agent is using a fallback <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a>. Which is to say, if an <{img}>'s [=fallback sizes used state=] is `true`, <code><a http-header>Sec-CH-Width</a></code> MUST NOT be sent.
 
 Note: the <a href="https://html.spec.whatwg.org/multipage/images.html#source-size-2">source size</a> may be zero. Servers should plan to receive requests for images to fit zero-width layout containers, and respond as best they can; for instance, with images clamped to some minimum (greater-than-zero) width.
 
@@ -253,6 +251,28 @@ This specification's [$client-hints-infrastructure/integration with Fetch$] is d
 
 
 
+Integration with HTML {#html-integration}
+-------
+
+This specification integrates with the [[!HTML]] specification in two places.
+
+First, it adds a new item to <a href="https://html.spec.whatwg.org/multipage/images.html#images-processing-model">images’ processing model</a>:
+
+An <{img}> element has a <dfn export>fallback sizes used state</dfn>, which is initially `false`.
+
+Second, it inserts two steps into the <a href="https://html.spec.whatwg.org/multipage/images.html#parsing-a-sizes-attribute">parsing a sizes attribute algorithm</a>.
+
+After step 2, it inserts the following step:
+
+<ol>
+<li>Set <var ignore=''>element</var>’s [=fallback sizes used state=] to `false`.
+</ol>
+
+Before step 4, it inserts the following step:
+
+<ol>
+<li>Set <var ignore=''>element</var>’s [=fallback sizes used state=] to `true`.
+</ol>
 
 
 
